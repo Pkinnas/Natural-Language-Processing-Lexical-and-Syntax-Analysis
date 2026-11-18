@@ -1,0 +1,28 @@
+import nltk
+
+#define the grammar
+MyGrammar = nltk.CFG.fromstring("""
+S -> NP VP
+NP -> Det Noun | ProperNoun | ProperNoun Det Noun | Noun
+VP -> Verb NP | Averb Adj | InVerb Adv | TrVerb NP
+Det -> 'the' | 'a'
+Noun -> 'dog' | 'cat' | 'food' | 'book' | 'books'
+Verb -> 'needs' | 'has' | 'hates' | 'chased' | 'loves'
+Averb -> 'is'
+Adj -> 'scary' | 'tall' | 'slim' | 'blonde'
+InVerb -> 'runs'
+TrVerb -> 'gives'
+ProperNoun -> 'mary' | 'john' | 'tomy'
+Adv -> 'quickly'
+""")
+
+#define a sentence
+sentence = ['mary', 'gives', 'john', 'a', 'book']
+
+#create parser
+parser = nltk.ChartParser(MyGrammar)
+
+
+#create syntax tree
+for SyntaxTree in parser.parse(sentence):
+    print(SyntaxTree)
